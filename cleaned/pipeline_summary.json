@@ -1,0 +1,27 @@
+{
+  "X_train_shape": [
+    976072,
+    29
+  ],
+  "X_test_shape": [
+    244019,
+    29
+  ],
+  "n_features": 29,
+  "target_distribution": {
+    "train_paid_ratio": 0.8027,
+    "test_paid_ratio": 0.8027
+  },
+  "pipeline_steps": [
+    "1. Initial inspection",
+    "2. Drop >40% missing cols; median/mode imputation",
+    "3. Text standardisation; emp_length\u2192int; fico merge; credit_history_years",
+    "4. IQR capping (3\u00d7IQR) on continuous features",
+    "5. Ordinal encoding (grade, sub_grade); one-hot (home_ownership, purpose, etc.)",
+    "6. StandardScaler on continuous features",
+    "7. VarianceThreshold + correlation-matrix feature selection",
+    "8. Binary target: Fully Paid=1, Charged Off=0",
+    "9. 80/20 stratified train-test split",
+    "10. Zero-NaN verified output"
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "installment": {
+    "outliers_capped": 14,
+    "lower": -773.41,
+    "upper": 1634.94
+  },
+  "annual_inc": {
+    "outliers_capped": 34802,
+    "lower": -93000.0,
+    "upper": 236000.0
+  },
+  "dti": {
+    "outliers_capped": 5066,
+    "lower": -25.6,
+    "upper": 62.04
+  },
+  "revol_bal": {
+    "outliers_capped": 48947,
+    "lower": -37274.0,
+    "upper": 63995.0
+  },
+  "revol_util": {
+    "outliers_capped": 7,
+    "lower": -80.8,
+    "upper": 182.4
+  },
+  "credit_history_years": {
+    "outliers_capped": 2557,
+    "lower": -14.3272,
+    "upper": 50.412
+  },
+  "fico_score": {
+    "outliers_capped": 807,
+    "lower": 557.0,
+    "upper": 837.0
+  }
+}
