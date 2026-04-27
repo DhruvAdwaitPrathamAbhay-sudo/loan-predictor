@@ -10,20 +10,38 @@ const ApplicationWizard = () => {
   const [loading, setLoading] = useState(false);
   
   const [formData, setFormData] = useState({
+    // Step 1: Loan Details
     loan_amnt: 15000,
     term: 36,
+    int_rate: 12.5,
     purpose: 'debt_consolidation',
+    application_type: 'Individual',
+    // Step 2: Financial Profile
     annual_inc: 75000,
     emp_length: 5,
     home_ownership: 'MORTGAGE',
+    dti: 18.5,
+    verification_status: 'Not Verified',
+    // Step 3: Credit History
     fico_score: 720,
+    credit_history_years: 15.0,
+    delinq_2yrs: 0,
+    inq_last_6mths: 1,
+    open_acc: 10,
+    pub_rec: 0,
+    revol_bal: 15000,
+    revol_util: 45.0,
+    total_acc: 20,
+    mort_acc: 1,
+    pub_rec_bankruptcies: 0,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    const stringFields = ['home_ownership', 'purpose', 'application_type', 'verification_status'];
     setFormData(prev => ({
       ...prev,
-      [name]: name === 'home_ownership' || name === 'purpose' ? value : Number(value)
+      [name]: stringFields.includes(name) ? value : Number(value)
     }));
   };
 
@@ -34,44 +52,13 @@ const ApplicationWizard = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Prepare API payload (same logic as before)
-    const payload = {
-      loan_amnt: formData.loan_amnt,
-      term: formData.term,
-      int_rate: 12.5,
-      emp_length: formData.emp_length,
-      annual_inc: formData.annual_inc,
-      dti: 18.5,
-      delinq_2yrs: 0,
-      inq_last_6mths: 1,
-      open_acc: 10,
-      pub_rec: 0,
-      revol_bal: 15000,
-      revol_util: 45.0,
-      total_acc: 20,
-      mort_acc: 1,
-      pub_rec_bankruptcies: 0,
-      credit_history_years: 15.0,
-      fico_score: formData.fico_score,
-      home_ownership_OWN: formData.home_ownership === 'OWN' ? 1 : 0,
-      home_ownership_RENT: formData.home_ownership === 'RENT' ? 1 : 0,
-      verification_status_Source_Verified: 0,
-      verification_status_Verified: 1,
-      purpose_credit_card: formData.purpose === 'credit_card' ? 1 : 0,
-      purpose_debt_consolidation: formData.purpose === 'debt_consolidation' ? 1 : 0,
-      purpose_home_improvement: formData.purpose === 'home_improvement' ? 1 : 0,
-      purpose_major_purchase: formData.purpose === 'major_purchase' ? 1 : 0,
-      purpose_medical: formData.purpose === 'medical' ? 1 : 0,
-      purpose_other: formData.purpose === 'other' ? 1 : 0,
-      purpose_small_business: formData.purpose === 'small_business' ? 1 : 0,
-      application_type_Joint_App: 0
-    };
-
+    // The v2 backend accepts user-friendly inputs directly
+    // and handles all one-hot encoding & scaling internally
     try {
-      const response = await fetch('http://127.0.0.1:8000/predict', {
+      const response = await fetch('http://127.0.0.1:8000/api/predict', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify(formData)
       });
       const data = await response.json();
       

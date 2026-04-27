@@ -117,6 +117,23 @@ const ResultsPage = () => {
           </div>
         </div>
 
+        {result.risk_factors && result.risk_factors.length > 0 && (
+          <div className="summary-section risk-factors">
+            <h3>AI Decision Analysis</h3>
+            <div className="factors-list">
+              {result.risk_factors.map((factor, idx) => (
+                <div key={idx} className={`factor-item ${factor.type}`}>
+                  <div className="factor-header">
+                    <span className={`factor-dot ${factor.type}`}></span>
+                    <span className="factor-label">{factor.label}</span>
+                  </div>
+                  <div className="factor-detail">{factor.detail}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         <button className="btn-secondary restart-btn" onClick={() => navigate('/apply')}>
           <RefreshCcw size={18} /> Start New Application
         </button>
