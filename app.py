@@ -29,7 +29,7 @@ app.add_middleware(
 SCALER_PATH = "./cleaned/scaler.pkl"
 FEATURES_PATH = "./cleaned/feature_names.json"
 # We expect the user to place the model downloaded from Colab here
-MODEL_PATH = "xgboost_loan_model.json"
+MODEL_PATH = "xgb_improved.json"
 
 scaler_info = None
 feature_metadata = None
@@ -104,7 +104,7 @@ class LoanApplication(BaseModel):
 @app.post("/predict")
 def predict_loan_approval(application: LoanApplication):
     if model is None:
-        raise HTTPException(status_code=503, detail="Model file (xgboost_loan_model.json) not found on server.")
+        raise HTTPException(status_code=503, detail="Model file (xgb_improved.json) not found on server.")
     
     # 1. Convert input to dict matching the exact order of `feature_metadata["features"]`
     input_data = application.dict()

@@ -106,7 +106,7 @@ def _hallucination_like_checks(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Evaluate an XGBoost JSON model on cleaned CSVs.")
-    parser.add_argument("--model", required=True, help="Path to xgboost_loan_model.json")
+    parser.add_argument("--model", required=True, help="Path to xgb_improved.json")
     parser.add_argument("--train", required=True, help="Path to cleaned train.csv (must include target)")
     parser.add_argument("--test", required=True, help="Path to cleaned test.csv (must include target)")
     parser.add_argument("--threshold", type=float, default=0.5, help="Classification threshold for metrics.")
